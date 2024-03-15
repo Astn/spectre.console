@@ -21,6 +21,13 @@ public sealed class AnsiConsoleSettings
     /// </summary>
     public IAnsiConsoleOutput? Out { get; set; }
 
+
+    public Func<Profile, IAnsiConsoleInput>? InputBuilder { get; set; }
+    /// <summary>
+    /// Gets or sets the input.
+    /// </summary>
+    public IAnsiConsoleInput? Input { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether or not the
     /// terminal is interactive or not.

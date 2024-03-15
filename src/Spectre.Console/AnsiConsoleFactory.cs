@@ -59,9 +59,15 @@ public sealed class AnsiConsoleFactory
             settings.Enrichment,
             settings.EnvironmentVariables);
 
-        return new AnsiConsoleFacade(
+        settings.InputBuilder ??= (p) => new DefaultInput(p);
+        settings.Input ??= settings.InputBuilder(profile);
+        settings.ExclusivityMode ??= new DefaultExclusivityMode();
+        var acf =  new AnsiConsoleFacade(
             profile,
-            settings.ExclusivityMode ?? new DefaultExclusivityMode());
+            settings.ExclusivityMode,
+            settings.Input);
+
+        return acf;
     }
 
     private static (bool Ansi, bool Legacy) DetectAnsi(AnsiConsoleSettings settings, System.IO.TextWriter buffer)
